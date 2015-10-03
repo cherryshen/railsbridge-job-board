@@ -1,5 +1,6 @@
 class JobsController < ApplicationController
 	def index
+		@jobs = Job.all
 	end
 
 	def new
@@ -8,10 +9,17 @@ class JobsController < ApplicationController
 	end
 
 	def create
-		p "all params: #{params}"
-		p "job params: #{job_params}"
-		p "jobs_path: #{jobs_path}"
 		Job.create(job_params)
+		redirect_to jobs_path
+	end
+
+	def edit
+		@job = Job.find(params[:id])
+	end 
+
+	def update
+		@job = Job.find(params[:id])
+		@job.update_attributes(job_params)
 		redirect_to jobs_path
 	end
 
